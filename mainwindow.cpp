@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Task.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -12,60 +13,90 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_listWidget_indexesMoved(QString str)
-{
-
-}
-
-
 void MainWindow::on_calendarWidget_selectionChanged()
 {
-
+    QDate *dateTimeEdit = new QDate();
+    *dateTimeEdit = ui->calendarWidget->selectedDate();
+    ui->dateTimeEdit->setDate(*dateTimeEdit);
+    ui->dateTimeEdit->update();
 }
 
 
-void MainWindow::on_dateTimeEdit_dateTimeChanged(const QDateTime &dateTime)
+void MainWindow::on_dateTimeEdit_dateTimeChanged(List list)
 {
-
+    for(size_t i = 0; i < list.GetSize(); i++){
+        if(list[i].GiveDate() == ui->dateTimeEdit->date())
+            ui->listWidget_2->addItem(list[i].GiveLine());
+        ui->dateTimeEdit->update();
+        ui->listWidget_2->update();
+    }
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pushButton_clicked(List list)
 {
-    QLineEdit *lineEdit = new QLineEdit("");
-    QTimeEdit *Time = new QTimeEdit();
-    //QString xyi = QTime::toString(*Time);
-    QString xyi = ui -> lineEdit -> text() + " " + Time -> text();
-    ui->listWidget->addItem(xyi);
-    ui->listWidget_2->addItem(xyi);
+    Task task(list.GetSize());
+    QString listItem_1 = ui -> lineEdit -> text() + " | " + ui->calendarWidget->selectedDate().toString() + " | " + ui -> timeEdit -> text();
+    QString listItem_2 = ui -> lineEdit -> text() + " | " + ui -> timeEdit -> text();
+
+    task.AddLine(listItem_1);
+
+    list.Add(task);
+
+    ui->listWidget->addItem(task.GiveLine());
 }
 
 
-void MainWindow::on_listWidget_itemClicked(QListWidgetItem *item)
+void MainWindow::on_listWidget_itemClicked()
 {
+    unsigned int counter = 0;
+    Task task(counter);
+    List list;
     QFont font;
     font.setStrikeOut(true);
+    //ui->listWidget->currentItem()->task.GetNumber();
     ui->listWidget->currentItem()->setFont(font);
-    ui->listWidget_2->currentItem()->setFont(font);
+    //______________________________________________ui->listWidget_2->currentItem()->setFont(font);  переделать под второй listView
 }
 
 
 void MainWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     delete ui->listWidget->currentItem();
-    delete ui->listWidget_2->currentItem();
+    //______________________________________________delete ui->listWidget_2->currentItem();  переделать под второй listView
 }
 
 
-
-void MainWindow::on_listWidget_2_itemClicked(QListWidgetItem *item)
+void MainWindow::on_listWidget_2_itemClicked(List list, Task task)
 {
+    QFont font;
+    font.setStrikeOut(true);
 
+    task.GetFont(font);
+
+    ui->listWidget_2->currentItem()->setFont(font);
 }
 
 
 void MainWindow::on_listWidget_2_itemDoubleClicked(QListWidgetItem *item)
 {
+    delete ui->listWidget->item(0);
+    delete ui->listWidget_2->item(0);
+}
 
+
+void MainWindow::on_timeEdit_userTimeChanged(List list)
+{
+    Task task(list.GetSize());
+    QTime time = ui->timeEdit->time();
+    task.GetTime(time);
+    ui->dateTimeEdit->setTime(time);
+    ui->dateTimeEdit->update();
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    //int number = ui->listWidget->item(ui->listWidget->currentRow());
 }
 

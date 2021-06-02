@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
     }
 
     MainWindow window;
-    //listWidget.addItem();
     window.show();
 
     return a.exec();

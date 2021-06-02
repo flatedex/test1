@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1281</width>
-    <height>679</height>
+    <width>1200</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,13 +28,20 @@
       </property>
       <property name="dateTime">
        <datetime>
-        <hour>13</hour>
+        <hour>16</hour>
         <minute>0</minute>
         <second>0</second>
         <year>2021</year>
         <month>1</month>
         <day>1</day>
        </datetime>
+      </property>
+      <property name="time">
+       <time>
+        <hour>16</hour>
+        <minute>0</minute>
+        <second>0</second>
+       </time>
       </property>
       <property name="displayFormat">
        <string notr="true">d/M/yyyy hh:mm</string>
@@ -54,12 +61,42 @@
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
+        <property name="dateTime">
+         <datetime>
+          <hour>16</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </datetime>
+        </property>
+        <property name="displayFormat">
+         <string>hh:mm</string>
+        </property>
+        <property name="time">
+         <time>
+          <hour>16</hour>
+          <minute>0</minute>
+          <second>0</second>
+         </time>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Добавить</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>Удалить</string>
         </property>
        </widget>
       </item>
@@ -72,6 +109,21 @@
         <width>417</width>
         <height>0</height>
        </size>
+      </property>
+      <property name="firstDayOfWeek">
+       <enum>Qt::Monday</enum>
+      </property>
+      <property name="gridVisible">
+       <bool>false</bool>
+      </property>
+      <property name="horizontalHeaderFormat">
+       <enum>QCalendarWidget::SingleLetterDayNames</enum>
+      </property>
+      <property name="verticalHeaderFormat">
+       <enum>QCalendarWidget::NoVerticalHeader</enum>
+      </property>
+      <property name="navigationBarVisible">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -98,7 +150,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1281</width>
+     <width>1200</width>
      <height>20</height>
     </rect>
    </property>
@@ -111,5 +163,22 @@
   <tabstop>dateTimeEdit</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>listWidget_2</receiver>
+   <slot>setCurrentIndex(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>792</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>946</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
